@@ -1,27 +1,19 @@
-let getRandomNumber = (min, max) => {
-  if (min >= 0 && max >= 0) {
-    if (max > min) {
-      return Math.floor(Math.random() * (max - min + 1)) + min;
-    } else {
-      console.log('Верхний порог должен быть больше, чем нижний');
-    }
-  } else {
-    console.log('Значение может быть только больше 0 или равно ему');
+const getRandomNumberInRange = (min, max) => {
+  if (min < 0 || max < 0 || min > max) {
+    throw new Error('Введите корректные значения');
   }
+
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-console.log(getRandomNumber(6, 10));
+console.log('getRandomNumberInRange', getRandomNumberInRange(6, 10));
 
-function getRandomFloat (min, max, commaCount) {
-  if (min >= 0 && max >= 0) {
-    if (max > min) {
-      return +(Math.random() * (max - min) + min).toFixed(commaCount);
-    } else {
-      console.log('Верхний порог должен быть больше, чем нижний');
-    }
-  } else {
-    console.log('Значение может быть только больше 0 или равно ему');
+const getRandomFloatInRange = (min, max, commaCount) => {
+  if (min < 0 || max < 0 || min > max) {
+    throw new Error('Введите корректные значения');
   }
+
+  return Number((Math.random() * (max - min) + min).toFixed(commaCount));
 }
 
-console.log(getRandomFloat(11, 19, 8));
+console.log('getRandomFloatInRange', getRandomFloatInRange(11, 19, 8));
