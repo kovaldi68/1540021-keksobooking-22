@@ -67,6 +67,7 @@ const getRandomNumberInRange = (min, max) => {
   if (min < 0 || max < 0 || min > max) {
     throw new Error('Введите корректные значения');
   }
+
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -74,28 +75,32 @@ const getRandomFloatInRange = (min, max, commaCount) => {
   if (min < 0 || max < 0 || min > max) {
     throw new Error('Введите корректные значения');
   }
+
   return Number((Math.random() * (max - min) + min).toFixed(commaCount));
 }
 
 const getRandomArray = (array) => {
-  let newArray = [];
+  const newArray = [];
+
   array.forEach((element) => {
     if (Math.random() > 0.5) {
       return;
     }
     newArray.push(element);
   })
+
   return newArray;
 }
 
 const getRandomArrayElement = (dataArray) => {
   const randomizer = Math.floor(Math.random() * dataArray.length);
+
   return dataArray[randomizer];
 }
 
 const createAd = () => {
-  const getRandomLocationX = getRandomFloatInRange(LOCATION.x.min, LOCATION.x.max, 5);
-  const getRandomLocationY = getRandomFloatInRange(LOCATION.y.min, LOCATION.y.max, 5);
+  const RandomLocationX = getRandomFloatInRange(LOCATION.x.min, LOCATION.x.max, 5);
+  const RandomLocationY = getRandomFloatInRange(LOCATION.y.min, LOCATION.y.max, 5);
 
   return {
     author: {
@@ -103,7 +108,7 @@ const createAd = () => {
     },
     offer: {
       title: getRandomArrayElement(TITLE),
-      address: `x: ${getRandomLocationX}, y: ${getRandomLocationY}`,
+      address: `${RandomLocationX}, ${RandomLocationY}`,
       price: getRandomNumberInRange(100, 1000000),
       rooms: getRandomNumberInRange(1, 100),
       guests: getRandomNumberInRange(0, 3),
@@ -115,8 +120,8 @@ const createAd = () => {
       photos: getRandomArray(PHOTOS),
     },
     location: {
-      x: getRandomLocationX,
-      y: getRandomLocationY,
+      x: RandomLocationX,
+      y: RandomLocationY,
     },
   }
 }
