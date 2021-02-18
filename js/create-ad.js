@@ -121,17 +121,17 @@ const sortByGuestNumber = (array) => {
   const arrayCopy = array.slice();
 
   for (let currentIndex = 0; currentIndex <= arrayCopy.length - 2; currentIndex++) {
-  let minValue = arrayCopy[currentIndex].offer.guests;
+    let minValue = arrayCopy[currentIndex].offer.guests;
 
-  for (let i = currentIndex + 1; i <= arrayCopy.length - 1; i++) {
-    if (arrayCopy[i].offer.guests < minValue) {
-      minValue = arrayCopy[i].offer.guests;
-      let save = arrayCopy[currentIndex].offer.guests;
-      arrayCopy[currentIndex].offer.guests = minValue;
-      arrayCopy[i].offer.guests = save;
+    for (let i = currentIndex + 1; i <= arrayCopy.length - 1; i++) {
+      if (arrayCopy[i].offer.guests < minValue) {
+        minValue = arrayCopy[i].offer.guests;
+        let save = arrayCopy[currentIndex].offer.guests;
+        arrayCopy[currentIndex].offer.guests = minValue;
+        arrayCopy[i].offer.guests = save;
+      }
     }
   }
-};
 
   return arrayCopy;
 };
