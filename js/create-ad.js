@@ -98,7 +98,11 @@ const createAd = () => {
   }
 }
 
-const ads = new Array(AD_COUNT).fill(null).map(() => createAd());
+const createAds = (number) => {
+  return new Array(number).fill(null).map(() => createAd());
+};
+
+const ads = createAds(AD_COUNT);
 
 //тренировка
 // 1. Отфильтруй по цене < 500000
