@@ -1,18 +1,6 @@
-import {ads, filterByPrice, sumAds, sortByGuestNumber} from './create-ad.js';
-
-console.log(ads);
-
-//тренировка
-// 1. Отфильтруй по цене < 500000
-// 2. Посчитай стоимость всех объявлений
-// 3. Отсортируй по возрастанию количества гостей
-console.log('Отфильтровал по сумме < 500.000: ')
-console.log(filterByPrice(ads));
-console.log('Сумма всех объектов в объявлениях: ' + sumAds);
-console.log('Отсортировал по возрастанию гостей: ')
-console.log(sortByGuestNumber(ads));
-
-//    Можно ли как-то выводить Фильтрацию и сортировку в консоль с помощьт одной строки?
-//    как "console.log('Сумма всех объектов в объявлениях: ' + sumAds);"
-//    или для этого нужно будет объект/массив преобразовывать в строку, или в этом вообще нет смысла?
-
+import {
+  ads,
+  filterByPrice,
+  sumAds,
+  sortByGuestNumber}
+  from './create-ad.js';

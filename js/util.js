@@ -33,4 +33,9 @@ const getRandomArrayElement = (dataArray) => {
   return dataArray[randomizer];
 }
 
-export {getRandomNumberInRange, getRandomFloatInRange, getRandomArray, getRandomArrayElement};
+export {
+  getRandomNumberInRange,
+  getRandomFloatInRange,
+  getRandomArray,
+  getRandomArrayElement
+};

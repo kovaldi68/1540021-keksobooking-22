@@ -1,4 +1,9 @@
-import {getRandomNumberInRange, getRandomFloatInRange, getRandomArray, getRandomArrayElement} from './util.js';
+import {
+  getRandomNumberInRange,
+  getRandomFloatInRange,
+  getRandomArray,
+  getRandomArrayElement}
+  from './util.js';
 
 const TITLE = [
   'Уютное гнездышко для молодоженов',
@@ -95,23 +100,12 @@ const createAd = () => {
 
 const ads = new Array(AD_COUNT).fill(null).map(() => createAd());
 
-
 //тренировка
 // 1. Отфильтруй по цене < 500000
 // 2. Посчитай стоимость всех объявлений
 // 3. Отсортируй по возрастанию количества гостей
 
-const filterByPrice = (array) => {
-  const filteredByPrice = [];
-
-  array.forEach((element) => {
-    if (element.offer.price < 500000) {
-      filteredByPrice.push(element);
-    }
-  })
-
-  return filteredByPrice;
-};
+const filterByPrice = ads.filter(value => value.offer.price < 500000);
 
 const sumAds = ads.reduce((accum, ad) => {
   return accum + (ad.offer.price);
@@ -119,23 +113,16 @@ const sumAds = ads.reduce((accum, ad) => {
 
 const sortByGuestNumber = (array) => {
   const arrayCopy = array.slice();
+  const sorted = arrayCopy.sort((a, b) => a.offer.guests - b.offer.guests);
 
-  for (let currentIndex = 0; currentIndex <= arrayCopy.length - 2; currentIndex++) {
-    let minValue = arrayCopy[currentIndex].offer.guests;
+  return sorted;
+}
 
-    for (let i = currentIndex + 1; i <= arrayCopy.length - 1; i++) {
-      if (arrayCopy[i].offer.guests < minValue) {
-        minValue = arrayCopy[i].offer.guests;
-        let save = arrayCopy[currentIndex].offer.guests;
-        arrayCopy[currentIndex].offer.guests = minValue;
-        arrayCopy[i].offer.guests = save;
-      }
-    }
-  }
-
-  return arrayCopy;
+export {
+  ads,
+  filterByPrice,
+  sumAds,
+  sortByGuestNumber
 };
-
-export {ads, filterByPrice, sumAds, sortByGuestNumber};
 
 
