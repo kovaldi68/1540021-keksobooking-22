@@ -122,11 +122,6 @@ const sortByGuestNumber = (array) => {
   return sorted;
 }
 
-export {
-  ads,
-  filterByPrice,
-  sumAds,
-  sortByGuestNumber
-};
+export {ads};
 
 
