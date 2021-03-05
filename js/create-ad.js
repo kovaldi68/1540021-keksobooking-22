@@ -104,24 +104,6 @@ const createAds = (number) => {
 
 const ads = createAds(AD_COUNT);
 
-//тренировка
-// 1. Отфильтруй по цене < 500000
-// 2. Посчитай стоимость всех объявлений
-// 3. Отсортируй по возрастанию количества гостей
-
-const filterByPrice = ads.filter(value => value.offer.price < 500000);
-
-const sumAds = ads.reduce((accum, ad) => {
-  return accum + (ad.offer.price);
-}, 0);
-
-const sortByGuestNumber = (array) => {
-  const arrayCopy = array.slice();
-  const sorted = arrayCopy.sort((a, b) => a.offer.guests - b.offer.guests);
-
-  return sorted;
-}
-
 export {ads};
 
 
