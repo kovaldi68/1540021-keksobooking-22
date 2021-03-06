@@ -1,6 +1,2 @@
-import {
-  ads,
-  filterByPrice,
-  sumAds,
-  sortByGuestNumber}
-  from './create-ad.js';
+import {ads} from './create-ad.js';
+import {renderAd} from './render-ad.js';
