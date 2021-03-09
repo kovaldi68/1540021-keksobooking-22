@@ -11,23 +11,49 @@ const typesMap = {
 };
 
 const renderFeaturesList = (features, parentBlock) => {
-  for (let i = 0; i < features.length; i++) {
+  features.forEach((value) => {
     const newFeature = document.createElement('li');
-    newFeature.classList.add('popup__feature', `popup__feature--${features[i]}`);
+    newFeature.classList.add('popup__feature', `popup__feature--${value}`);
     parentBlock.appendChild(newFeature);
-  };
+  });
 };
 
 const renderAdPhotos = (photos, photoGallery) => {
-  for (let j = 0; j < photos.length; j++) {
+  photos.forEach((value) => {
     const newPhoto = document.createElement('img');
-    newPhoto.src = photos[j];
+    newPhoto.src = value;
     newPhoto.width = '45';
     newPhoto.height = '40';
     newPhoto.alt = "Фотография жилья";
     photoGallery.appendChild(newPhoto);
-  };
+  });
 };
+
+const guestWords = ['гостя', 'гостей'];
+const roomWords = ['комнат', 'комната', 'комнаты'];
+const exceptions = [11, 12, 13, 14];
+
+const guestEnding = (number, textForms) => {
+  if (number%10 == 1 && number%10 != 11) {
+    return textForms[0];
+  }
+
+  return textForms[1];
+}
+
+const roomEnding = (number, textForms) => {
+  if (exceptions.includes(number)) {
+    return textForms[0];
+  }
+  if (number%10 > 1 && number%10 < 5) {
+    return textForms[2];
+  }
+  if (number%10 == 1 && number != 11) {
+    return textForms[1];
+  }
+
+  return textForms[0];
+}
 
 const renderAd = ( {author, offer} ) => {
   const {
@@ -53,7 +79,7 @@ const renderAd = ( {author, offer} ) => {
   clonedCard.querySelector('.popup__type').textContent = typesMap[type];
   clonedCard.querySelector('.popup__text--address').textContent = address;
   clonedCard.querySelector('.popup__text--price').textContent = `${price} ₽/ночь`;
-  clonedCard.querySelector('.popup__text--capacity').textContent = `${rooms} комнаты для ${guests} гостей`;
+  clonedCard.querySelector('.popup__text--capacity').textContent = `${rooms} ${roomEnding(rooms, roomWords)} для ${guests} ${guestEnding(guests, guestWords)}`;
   clonedCard.querySelector('.popup__text--time').textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
   clonedCard.querySelector('.popup__description').textContent = description;
 
@@ -66,8 +92,8 @@ const renderAd = ( {author, offer} ) => {
   return clonedCard;
 };
 
+
 const card = renderAd(ads[0]);
 mapCanvas.appendChild(card);
-console.log(card);
 
 export {renderAd};
