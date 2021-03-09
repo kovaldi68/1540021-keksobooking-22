@@ -10,21 +10,23 @@ const priceMap = {
   palace: 10000,
 };
 
-const onSelectChange = () => {
+const priceChangeHandler = () => {
   priceInput.min = priceMap[typeSelector.value];
   priceInput.placeholder = priceMap[typeSelector.value];
 };
 
-const timeInChange = () => {
+priceChangeHandler();
+
+const checkInChangeHandler = () => {
   timeOutSelector.value = timeInSelector.value;
 };
 
-const timeOutChange = () => {
+const checkOutChangeHandler = () => {
   timeInSelector.value = timeOutSelector.value;
 };
 
-typeSelector.addEventListener('change', onSelectChange);
+typeSelector.addEventListener('change', priceChangeHandler);
 
-timeInSelector.addEventListener('change', timeInChange);
+timeInSelector.addEventListener('change', checkInChangeHandler);
 
-timeOutSelector.addEventListener('change', timeOutChange);
+timeOutSelector.addEventListener('change', checkOutChangeHandler);

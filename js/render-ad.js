@@ -1,7 +1,10 @@
 import {ads} from './create-ad.js';
+import {getWordEnding} from './util.js';
 
 const adCard = document.querySelector('#card').content.querySelector('.popup');
 const mapCanvas = document.querySelector('.map__canvas');
+const GUEST_WORDS = ['гостя', 'гостей', 'гостей'];
+const ROOM_WORDS = ['комната', 'комнаты', 'комнат'];
 
 const typesMap = {
   flat: 'Квартира',
@@ -29,32 +32,6 @@ const renderAdPhotos = (photos, photoGallery) => {
   });
 };
 
-const guestWords = ['гостя', 'гостей'];
-const roomWords = ['комнат', 'комната', 'комнаты'];
-const exceptions = [11, 12, 13, 14];
-
-const guestEnding = (number, textForms) => {
-  if (number%10 == 1 && number%10 != 11) {
-    return textForms[0];
-  }
-
-  return textForms[1];
-}
-
-const roomEnding = (number, textForms) => {
-  if (exceptions.includes(number)) {
-    return textForms[0];
-  }
-  if (number%10 > 1 && number%10 < 5) {
-    return textForms[2];
-  }
-  if (number%10 == 1 && number != 11) {
-    return textForms[1];
-  }
-
-  return textForms[0];
-}
-
 const renderAd = ( {author, offer} ) => {
   const {
     title,
@@ -79,7 +56,7 @@ const renderAd = ( {author, offer} ) => {
   clonedCard.querySelector('.popup__type').textContent = typesMap[type];
   clonedCard.querySelector('.popup__text--address').textContent = address;
   clonedCard.querySelector('.popup__text--price').textContent = `${price} ₽/ночь`;
-  clonedCard.querySelector('.popup__text--capacity').textContent = `${rooms} ${roomEnding(rooms, roomWords)} для ${guests} ${guestEnding(guests, guestWords)}`;
+  clonedCard.querySelector('.popup__text--capacity').textContent = `${rooms} ${getWordEnding(rooms, ROOM_WORDS)} для ${guests} ${getWordEnding(guests, GUEST_WORDS)}`;
   clonedCard.querySelector('.popup__text--time').textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
   clonedCard.querySelector('.popup__description').textContent = description;
 
