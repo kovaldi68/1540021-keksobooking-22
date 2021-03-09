@@ -24,7 +24,7 @@ const renderAdPhotos = (photos, photoGallery) => {
     newPhoto.src = value;
     newPhoto.width = '45';
     newPhoto.height = '40';
-    newPhoto.alt = "Фотография жилья";
+    newPhoto.alt = 'Фотография жилья';
     photoGallery.appendChild(newPhoto);
   });
 };
