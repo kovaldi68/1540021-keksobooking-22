@@ -1,7 +1,10 @@
 import {ads} from './create-ad.js';
+import {getWordEnding} from './util.js';
 
 const adCard = document.querySelector('#card').content.querySelector('.popup');
 const mapCanvas = document.querySelector('.map__canvas');
+const GUEST_WORDS = ['гостя', 'гостей', 'гостей'];
+const ROOM_WORDS = ['комната', 'комнаты', 'комнат'];
 
 const typesMap = {
   flat: 'Квартира',
@@ -11,22 +14,22 @@ const typesMap = {
 };
 
 const renderFeaturesList = (features, parentBlock) => {
-  for (let i = 0; i < features.length; i++) {
+  features.forEach((value) => {
     const newFeature = document.createElement('li');
-    newFeature.classList.add('popup__feature', `popup__feature--${features[i]}`);
+    newFeature.classList.add('popup__feature', `popup__feature--${value}`);
     parentBlock.appendChild(newFeature);
-  };
+  });
 };
 
 const renderAdPhotos = (photos, photoGallery) => {
-  for (let j = 0; j < photos.length; j++) {
+  photos.forEach((value) => {
     const newPhoto = document.createElement('img');
-    newPhoto.src = photos[j];
+    newPhoto.src = value;
     newPhoto.width = '45';
     newPhoto.height = '40';
-    newPhoto.alt = "Фотография жилья";
+    newPhoto.alt = 'Фотография жилья';
     photoGallery.appendChild(newPhoto);
-  };
+  });
 };
 
 const renderAd = ( {author, offer} ) => {
@@ -53,7 +56,7 @@ const renderAd = ( {author, offer} ) => {
   clonedCard.querySelector('.popup__type').textContent = typesMap[type];
   clonedCard.querySelector('.popup__text--address').textContent = address;
   clonedCard.querySelector('.popup__text--price').textContent = `${price} ₽/ночь`;
-  clonedCard.querySelector('.popup__text--capacity').textContent = `${rooms} комнаты для ${guests} гостей`;
+  clonedCard.querySelector('.popup__text--capacity').textContent = `${rooms} ${getWordEnding(rooms, ROOM_WORDS)} для ${guests} ${getWordEnding(guests, GUEST_WORDS)}`;
   clonedCard.querySelector('.popup__text--time').textContent = `Заезд после ${checkin}, выезд до ${checkout}`;
   clonedCard.querySelector('.popup__description').textContent = description;
 
@@ -66,8 +69,8 @@ const renderAd = ( {author, offer} ) => {
   return clonedCard;
 };
 
+
 const card = renderAd(ads[0]);
 mapCanvas.appendChild(card);
-console.log(card);
 
 export {renderAd};

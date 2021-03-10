@@ -33,9 +33,22 @@ const getRandomArrayElement = (dataArray) => {
   return dataArray[randomizer];
 }
 
+const getWordEnding = (number, textForms) => {
+  number = Math.abs(number) % 100;
+  const leftOver10 = number % 10;
+  if (number > 10 && number < 20) {
+    return textForms[2]; }
+  if (leftOver10 > 1 && leftOver10 < 5) {
+    return textForms[1]; }
+  if (leftOver10 == 1) {
+    return textForms[0]; }
+  return textForms[2];
+}
+
 export {
   getRandomNumberInRange,
   getRandomFloatInRange,
   getRandomArray,
-  getRandomArrayElement
+  getRandomArrayElement,
+  getWordEnding,
 };
