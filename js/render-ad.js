@@ -2,7 +2,6 @@ import {ads} from './create-ad.js';
 import {getWordEnding} from './util.js';
 
 const adCard = document.querySelector('#card').content.querySelector('.popup');
-const mapCanvas = document.querySelector('.map__canvas');
 const GUEST_WORDS = ['гостя', 'гостей', 'гостей'];
 const ROOM_WORDS = ['комната', 'комнаты', 'комнат'];
 
@@ -71,6 +70,5 @@ const renderAd = ( {author, offer} ) => {
 
 
 const card = renderAd(ads[0]);
-mapCanvas.appendChild(card);
 
-export {renderAd};
+export {card};

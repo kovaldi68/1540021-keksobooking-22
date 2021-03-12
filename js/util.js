@@ -50,5 +50,5 @@ export {
   getRandomFloatInRange,
   getRandomArray,
   getRandomArrayElement,
-  getWordEnding,
+  getWordEnding
 };
