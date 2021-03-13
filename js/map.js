@@ -1,50 +1,72 @@
+/* global L:readonly */
+
 import {
-  adForm,
-  adFields,
-  mapContainer,
-  mapFilters
-} from './project-availability.js';
+  disablePage,
+  enablePage
+} from './page-status.js';
 import {ads} from './create-ad.js';
-import {card} from './render-ad.js';
+import {renderAd} from './render-ad.js';
+
+const MapSettings = {
+  LAT: '35.68950',
+  LNG: '139.69171',
+  ZOOM: 12,
+  LAYER: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  ATTRIBUTION: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+
+};
+
+const MainPinSettings = {
+  URL: '../img/main-pin.svg',
+  SIZE: {
+    X: 46,
+    Y: 46,
+  },
+};
+
+const PinSettings = {
+  URL: '../img/pin.svg',
+  SIZE: {
+    X: 36,
+    Y: 36,
+  },
+}
 
 const address = document.querySelector('#address');
 
-const setEnable = (array) => {
-  array.forEach((element) => {
-    element.removeAttribute('disabled', 'disabled');
-  });
+const setDefaultAddress = () => {
+  address.value = `${MapSettings.LAT}, ${MapSettings.LNG}`;
 };
+
+disablePage();
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    adForm.classList.remove('ad-form--disabled');
-    mapContainer.classList.remove('map__filters--disabled');
-    setEnable(adFields);
-    setEnable(mapFilters);
-    address.value = '35.68950, 139.69171'  //сделать координаты
+    enablePage();
+    setDefaultAddress();
   },
   )
   .setView({
-    lat: 35.68950,
-    lng: 139.69171,
-  }, 12);
+    lat: MapSettings.LAT,
+    lng: MapSettings.LNG,
+  }, MapSettings.ZOOM);
 
 L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  MapSettings.LAYER, {
+    attribution: MapSettings.ATTRIBUTION,
   },
 ).addTo(map);
 
 const mainMarkerIcon = L.icon ({
-  iconUrl: '../img/main-pin.svg',
-  iconSize: [46, 46],
-  iconAnchor: [23, 46],
+  iconUrl: MainPinSettings.URL,
+  iconSize: [MainPinSettings.SIZE.X, MainPinSettings.SIZE.Y],
+  iconAnchor: [(MainPinSettings.SIZE.X / 2), MainPinSettings.SIZE.Y],
 });
 
 const mainMarker = L.marker (
   {
-    lat: 35.68950,
-    lng: 139.69171,
+    lat: MapSettings.LAT,
+    lng: MapSettings.LNG,
   },
   {
     draggable: true,
@@ -54,30 +76,34 @@ const mainMarker = L.marker (
 
 mainMarker.addTo(map);
 
-mainMarker.on('moveend', (evt) => {
-  address.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
+mainMarker.on('drag', (evt) => {
+  const {lat, lng} = evt.target.getLatLng();
+  address.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
 })
 
-ads.forEach(({location}) => {
+const renderPins = (dataArray) => {
+  dataArray.forEach((ad) => {
 
-  const icon = L.icon ({
-    iconUrl: '../img/pin.svg',
-    iconSize: [36, 36],
-    iconAnchor: [18, 36],
+    const icon = L.icon ({
+      iconUrl: PinSettings.URL,
+      iconSize: [PinSettings.SIZE.X, PinSettings.SIZE.Y],
+      iconAnchor: [(PinSettings.SIZE.X / 2), PinSettings.SIZE.Y],
+    });
+
+    const marker = L.marker (
+      {
+        lat: ad.location.x,
+        lng: ad.location.y,
+      },
+      {
+        icon: icon,
+      },
+    );
+
+    marker
+      .addTo(map)
+      .bindPopup(renderAd(ad));
   });
+};
 
-  const marker = L.marker (
-    {
-      lat: location.x,
-      lng: location.y,
-    },
-    {
-      icon: icon,
-    },
-  );
-
-  marker
-    .addTo(map)
-    .bindPopup(card);
-});
-
+renderPins(ads);

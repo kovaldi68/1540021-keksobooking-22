@@ -68,7 +68,4 @@ const renderAd = ( {author, offer} ) => {
   return clonedCard;
 };
 
-
-const card = renderAd(ads[0]);
-
-export {card};
+export {renderAd};
