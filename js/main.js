@@ -1,3 +1,5 @@
 import {ads} from './create-ad.js';
 import {renderAd} from './render-ad.js';
-import './change-handler.js';
+import './form-setting.js';
+import './page-status.js';
+import './map.js';
