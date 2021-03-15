@@ -60,7 +60,7 @@ L.tileLayer(
 const mainMarkerIcon = L.icon ({
   iconUrl: MainPinSettings.URL,
   iconSize: [MainPinSettings.SIZE.X, MainPinSettings.SIZE.Y],
-  iconAnchor: [(MainPinSettings.SIZE.X / 2), MainPinSettings.SIZE.Y],
+  iconAnchor: [MainPinSettings.SIZE.X / 2, MainPinSettings.SIZE.Y],
 });
 
 const mainMarker = L.marker (
@@ -87,7 +87,7 @@ const renderPins = (dataArray) => {
     const icon = L.icon ({
       iconUrl: PinSettings.URL,
       iconSize: [PinSettings.SIZE.X, PinSettings.SIZE.Y],
-      iconAnchor: [(PinSettings.SIZE.X / 2), PinSettings.SIZE.Y],
+      iconAnchor: [PinSettings.SIZE.X / 2, PinSettings.SIZE.Y],
     });
 
     const marker = L.marker (
