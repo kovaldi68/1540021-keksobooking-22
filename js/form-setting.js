@@ -15,18 +15,10 @@ const priceChangeHandler = () => {
   priceInput.placeholder = priceMap[typeSelector.value];
 };
 
-priceChangeHandler();
-
-const checkInChangeHandler = () => {
-  timeOutSelector.value = timeInSelector.value;
-};
-
-const checkOutChangeHandler = () => {
-  timeInSelector.value = timeOutSelector.value;
-};
+const checkInChangeHandler = () => timeOutSelector.value = timeInSelector.value;
+const checkOutChangeHandler = () => timeInSelector.value = timeOutSelector.value;
 
 typeSelector.addEventListener('change', priceChangeHandler);
-
 timeInSelector.addEventListener('change', checkInChangeHandler);
-
 timeOutSelector.addEventListener('change', checkOutChangeHandler);
+priceChangeHandler();
