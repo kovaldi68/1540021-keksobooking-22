@@ -1,11 +1,14 @@
 import {getWordEnding} from './util.js';
+import {adForm} from './page-status.js';
 
-const adForm = document.querySelector('.ad-form');
+const typeSelector = document.querySelector('#type');
+const timeInSelector = document.querySelector('#timein');
+const timeOutSelector = document.querySelector('#timeout');
 const adTitleInput = adForm.querySelector('#title');
 const adPriceInput = adForm.querySelector('#price');
 const adRoomSelect = adForm.querySelector('#room_number');
 const adCapacitySelect = adForm.querySelector('#capacity');
-const invalidFormElements = adForm.querySelectorAll('input:invalid, select:invalid');
+const invalidFormElements = adForm.querySelectorAll('input');
 
 const SYMBOL_WORDS = ['символ', 'символа', 'символов'];
 const MIN_TITLE_LENGTH = 30;
@@ -17,6 +20,21 @@ const STYLES = {
   INVALID: '2px dashed orange',
   VALID: '1px solid green',
 };
+
+const priceMap = {
+  flat: 1000,
+  house: 5000,
+  bungalow: 0,
+  palace: 10000,
+};
+
+const priceChangeHandler = () => {
+  adPriceInput.min = priceMap[typeSelector.value];
+  adPriceInput.placeholder = priceMap[typeSelector.value];
+};
+
+const checkInChangeHandler = () => timeOutSelector.value = timeInSelector.value;
+const checkOutChangeHandler = () => timeInSelector.value = timeOutSelector.value;
 
 const titleInputHandler = (evt) => {
   const length = evt.target.value.length;
@@ -35,8 +53,7 @@ const priceInputHandler = (evt) => {
   const priceValue = evt.target.value;
   if (priceValue > MAX_PRICE) {
     adPriceInput.setCustomValidity('Цена не может превышать 1 000 000 рублей');
-  }
-  else {
+  } else {
     adPriceInput.setCustomValidity('');
   }
 
@@ -47,44 +64,34 @@ const capacityChangeHandler = (evt) => {
   const roomsNumber = parseInt(adRoomSelect.value, 10);
   const guestsNumber = parseInt(adCapacitySelect.value, 10);
 
+  evt.preventDefault();
   if (roomsNumber !== PALACE_ROOM_COUNT && guestsNumber === PALACE_GUEST_COUNT ) {
     adCapacitySelect.setCustomValidity('Добавьте хотя бы одного гостя');
-    evt.preventDefault();
   } else if (roomsNumber < guestsNumber) {
     adCapacitySelect.setCustomValidity('Мало комнат для такого количества гостей. Увеличьте количество комнат или уменьшите количество гостей');
-    evt.preventDefault();
   } else if (roomsNumber === PALACE_ROOM_COUNT && guestsNumber !== PALACE_GUEST_COUNT ) {
     adCapacitySelect.setCustomValidity('Это помещение не для гостей');
-    evt.preventDefault();
   } else if (roomsNumber >= guestsNumber) {
     adCapacitySelect.setCustomValidity('');
   }
 };
 
-const getInvalidStyle = () => {
-  invalidFormElements.forEach((value) => {
-    value.style.border = STYLES.INVALID;
-  })
+const inputValidityHandler = (evt) => {
+  const formElement = evt.target;
+  const { valid } = formElement.validity;
+
+  if (!valid) {
+    formElement.style.border = STYLES.INVALID;
+  } else {
+    formElement.style.border = STYLES.VALID;
+  }
 };
 
-
-const getValidityStyle = () => {
-  invalidFormElements.forEach((value) => {
-    value.addEventListener('change', () => {
-      if (value.validity.tooShort === true || value.validity.tooLong === true || value.validity.valueMissing === true) {
-        value.style.border = STYLES.INVALID;
-      }
-      if (value.validity.tooShort === false && value.validity.tooLong === false && value.validity.valueMissing === false) {
-        value.style.border = STYLES.VALID;
-      }
-    })
-  })
-};
-
+invalidFormElements.forEach( element => element.addEventListener('change', inputValidityHandler))
+typeSelector.addEventListener('change', priceChangeHandler);
+timeInSelector.addEventListener('change', checkInChangeHandler);
+timeOutSelector.addEventListener('change', checkOutChangeHandler);
 adTitleInput.addEventListener('input', titleInputHandler);
 adPriceInput.addEventListener('input', priceInputHandler);
-adRoomSelect.addEventListener('change', capacityChangeHandler);
-adCapacitySelect.addEventListener('change', capacityChangeHandler);
 adForm.addEventListener('submit', capacityChangeHandler);
-getInvalidStyle();
-getValidityStyle();
+priceChangeHandler();

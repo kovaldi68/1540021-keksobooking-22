@@ -4,13 +4,12 @@ import {
   disablePage,
   enablePage
 } from './page-status.js';
-import {ads} from './create-ad.js';
 import {renderAd} from './render-ad.js';
 
 const MapSettings = {
   LAT: '35.68950',
   LNG: '139.69171',
-  ZOOM: 12,
+  ZOOM: 9,
   LAYER: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   ATTRIBUTION: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 
@@ -92,8 +91,8 @@ const renderPins = (dataArray) => {
 
     const marker = L.marker (
       {
-        lat: ad.location.x,
-        lng: ad.location.y,
+        lat: ad.location.lat,
+        lng: ad.location.lng,
       },
       {
         icon: icon,
@@ -106,4 +105,4 @@ const renderPins = (dataArray) => {
   });
 };
 
-renderPins(ads);
+export {renderPins, setDefaultAddress, mainMarker, MapSettings};
