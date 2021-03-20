@@ -1,7 +1,8 @@
-import {getWordEnding, showAlert} from './util.js';
+import {getWordEnding, isEscEvent} from './util.js';
 import {adForm} from './page-status.js';
 import {setDefaultAddress, resetMainMarker, mapReset} from './map.js';
 import {sendData} from './api.js';
+import {successMessage, errorMessage} from './message.js';
 
 const typeSelector = document.querySelector('#type');
 const timeInSelector = document.querySelector('#timein');
@@ -77,6 +78,8 @@ const capacityChangeHandler = () => {
   } else if (roomsNumber >= guestsNumber) {
     adCapacitySelect.setCustomValidity('');
   }
+
+  adCapacitySelect.reportValidity();
 };
 
 const inputValidityHandler = (evt) => {
@@ -89,12 +92,14 @@ const inputValidityHandler = (evt) => {
 const formSubmitHandler = (evt) => {
   evt.preventDefault();
   if (evt.target.checkValidity()) {
-    adForm.submit();
+    const formData = new FormData(evt.target);
+    sendData(onDataSuccess, onDataError, formData);
   }
 };
 
 const resetForm = () => {
   adForm.reset();
+  mapFilters.reset();
   setDefaultAddress();
   resetMainMarker();
   mapReset();
@@ -103,30 +108,27 @@ const resetForm = () => {
 const buttonResetHandler = (evt) => {
   evt.preventDefault();
   resetForm();
+
 };
 
 const onDataSuccess = () => {
-  showAlert('Форма отправлена')
+  successMessage();
   resetForm();
 };
 
 const onDataError = () => {
-  showAlert('Не удалось отправить форму');
+  errorMessage();
 };
 
-const formData = (evt) => {
-  new FormData(evt.target);
-};
-
-sendData(onDataSuccess, onDataError, formData);
-
+capacityChangeHandler();
+adRoomSelect.addEventListener('change', capacityChangeHandler);
+adCapacitySelect.addEventListener('change', capacityChangeHandler);
 invalidFormElements.forEach( element => element.addEventListener('change', inputValidityHandler))
 typeSelector.addEventListener('change', priceChangeHandler);
 timeInSelector.addEventListener('change', checkInChangeHandler);
 timeOutSelector.addEventListener('change', checkOutChangeHandler);
 adTitleInput.addEventListener('input', titleInputHandler);
 adPriceInput.addEventListener('input', priceInputHandler);
-adForm.addEventListener('sumbit', formSubmitHandler);
-resetButton.addEventListener('click', buttonResetHandler)
-capacityChangeHandler();
+adForm.addEventListener('submit', formSubmitHandler);
+resetButton.addEventListener('click', buttonResetHandler);
 priceChangeHandler();

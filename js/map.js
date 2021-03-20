@@ -88,7 +88,7 @@ mainMarker.on('drag', (evt) => {
 })
 
 const resetMainMarker = () => {
-  mainMarker.setLatLng(MapSettings.LAT, MapSettings.LNG);
+  mainMarker.setLatLng([MapSettings.LAT, MapSettings.LNG]);
 };
 
 const renderPins = (dataArray) => {

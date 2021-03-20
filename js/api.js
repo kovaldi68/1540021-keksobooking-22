@@ -14,8 +14,6 @@ const fetchData = (onSuccess, onFail) => {
 };
 
 const sendData = (onSuccess, onFail, formData) => {
-  formData();
-
   fetch(
     API_URL,
     {
@@ -26,6 +24,8 @@ const sendData = (onSuccess, onFail, formData) => {
     .then((response) => {
       if (response.ok) {
         onSuccess();
+      } else {
+        onFail();
       }
     })
     .catch(() => {
