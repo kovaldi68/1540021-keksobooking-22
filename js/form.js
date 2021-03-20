@@ -1,5 +1,7 @@
-import {getWordEnding} from './util.js';
+import {getWordEnding, showAlert} from './util.js';
 import {adForm} from './page-status.js';
+import {setDefaultAddress, resetMainMarker, mapReset} from './map.js';
+import {sendData} from './api.js';
 
 const typeSelector = document.querySelector('#type');
 const timeInSelector = document.querySelector('#timein');
@@ -9,6 +11,8 @@ const adPriceInput = adForm.querySelector('#price');
 const adRoomSelect = adForm.querySelector('#room_number');
 const adCapacitySelect = adForm.querySelector('#capacity');
 const invalidFormElements = adForm.querySelectorAll('input');
+const resetButton = document.querySelector('.ad-form__reset');
+const mapFilters = document.querySelector('.map__filters');
 
 const SYMBOL_WORDS = ['символ', 'символа', 'символов'];
 const MIN_TITLE_LENGTH = 30;
@@ -60,11 +64,10 @@ const priceInputHandler = (evt) => {
   adPriceInput.reportValidity();
 };
 
-const capacityChangeHandler = (evt) => {
+const capacityChangeHandler = () => {
   const roomsNumber = parseInt(adRoomSelect.value, 10);
   const guestsNumber = parseInt(adCapacitySelect.value, 10);
 
-  evt.preventDefault();
   if (roomsNumber !== PALACE_ROOM_COUNT && guestsNumber === PALACE_GUEST_COUNT ) {
     adCapacitySelect.setCustomValidity('Добавьте хотя бы одного гостя');
   } else if (roomsNumber < guestsNumber) {
@@ -80,12 +83,42 @@ const inputValidityHandler = (evt) => {
   const formElement = evt.target;
   const { valid } = formElement.validity;
 
-  if (!valid) {
-    formElement.style.border = STYLES.INVALID;
-  } else {
-    formElement.style.border = STYLES.VALID;
+  formElement.style.border = !valid ? STYLES.INVALID : STYLES.VALID;
+};
+
+const formSubmitHandler = (evt) => {
+  evt.preventDefault();
+  if (evt.target.checkValidity()) {
+    adForm.submit();
   }
 };
+
+const resetForm = () => {
+  adForm.reset();
+  setDefaultAddress();
+  resetMainMarker();
+  mapReset();
+};
+
+const buttonResetHandler = (evt) => {
+  evt.preventDefault();
+  resetForm();
+};
+
+const onDataSuccess = () => {
+  showAlert('Форма отправлена')
+  resetForm();
+};
+
+const onDataError = () => {
+  showAlert('Не удалось отправить форму');
+};
+
+const formData = (evt) => {
+  new FormData(evt.target);
+};
+
+sendData(onDataSuccess, onDataError, formData);
 
 invalidFormElements.forEach( element => element.addEventListener('change', inputValidityHandler))
 typeSelector.addEventListener('change', priceChangeHandler);
@@ -93,5 +126,7 @@ timeInSelector.addEventListener('change', checkInChangeHandler);
 timeOutSelector.addEventListener('change', checkOutChangeHandler);
 adTitleInput.addEventListener('input', titleInputHandler);
 adPriceInput.addEventListener('input', priceInputHandler);
-adForm.addEventListener('submit', capacityChangeHandler);
+adForm.addEventListener('sumbit', formSubmitHandler);
+resetButton.addEventListener('click', buttonResetHandler)
+capacityChangeHandler();
 priceChangeHandler();

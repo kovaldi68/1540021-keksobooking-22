@@ -56,6 +56,13 @@ L.tileLayer(
   },
 ).addTo(map);
 
+const mapReset = () => {
+  map.setView({
+    lat: MapSettings.LAT,
+    lng: MapSettings.LNG,
+  }, MapSettings.ZOOM);
+};
+
 const mainMarkerIcon = L.icon ({
   iconUrl: MainPinSettings.URL,
   iconSize: [MainPinSettings.SIZE.X, MainPinSettings.SIZE.Y],
@@ -79,6 +86,10 @@ mainMarker.on('drag', (evt) => {
   const {lat, lng} = evt.target.getLatLng();
   address.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
 })
+
+const resetMainMarker = () => {
+  mainMarker.setLatLng(MapSettings.LAT, MapSettings.LNG);
+};
 
 const renderPins = (dataArray) => {
   dataArray.forEach((ad) => {
@@ -105,4 +116,4 @@ const renderPins = (dataArray) => {
   });
 };
 
-export {renderPins, setDefaultAddress, mainMarker, MapSettings};
+export {renderPins, setDefaultAddress, resetMainMarker, mapReset};

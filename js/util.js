@@ -58,7 +58,7 @@ const showAlert = (message) => {
   alertContainer.style.padding = '16px 3px';
   alertContainer.style.fontSize = '15px';
   alertContainer.style.textAlign = 'center';
-  alertContainer.style.backgroundColor = 'black';
+  alertContainer.style.backgroundColor = 'red';
 
   alertContainer.textContent = message;
 
@@ -69,11 +69,16 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 }
 
+const isEscEvent = (evt) => {
+  return evt.key === 'Escape' || evt.key === 'Esc';
+};
+
 export {
   getRandomNumberInRange,
   getRandomFloatInRange,
   getRandomArray,
   getRandomArrayElement,
   getWordEnding,
-  showAlert
+  showAlert,
+  isEscEvent
 };
