@@ -1,4 +1,3 @@
-import {ads} from './create-ad.js';
 import {getWordEnding} from './util.js';
 
 const adCard = document.querySelector('#card').content.querySelector('.popup');

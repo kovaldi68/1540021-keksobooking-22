@@ -85,11 +85,13 @@ mainMarker.addTo(map);
 mainMarker.on('drag', (evt) => {
   const {lat, lng} = evt.target.getLatLng();
   address.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
-})
+});
 
 const resetMainMarker = () => {
   mainMarker.setLatLng([MapSettings.LAT, MapSettings.LNG]);
 };
+
+const pinsLayer = L.layerGroup();
 
 const renderPins = (dataArray) => {
   dataArray.forEach((ad) => {
@@ -111,9 +113,15 @@ const renderPins = (dataArray) => {
     );
 
     marker
-      .addTo(map)
       .bindPopup(renderAd(ad));
+    pinsLayer.addLayer(marker);
   });
+
+  pinsLayer.addTo(map);
 };
 
-export {renderPins, setDefaultAddress, resetMainMarker, mapReset};
+const clearPins = () => {
+  pinsLayer.clearLayers();
+};
+
+export {renderPins, setDefaultAddress, resetMainMarker, mapReset, clearPins};
