@@ -29,5 +29,6 @@ const enablePage = () => {
 
 export {
   disablePage,
-  enablePage
+  enablePage,
+  adForm
 };

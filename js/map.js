@@ -4,13 +4,12 @@ import {
   disablePage,
   enablePage
 } from './page-status.js';
-import {ads} from './create-ad.js';
 import {renderAd} from './render-ad.js';
 
 const MapSettings = {
   LAT: '35.68950',
   LNG: '139.69171',
-  ZOOM: 12,
+  ZOOM: 9,
   LAYER: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
   ATTRIBUTION: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 
@@ -57,6 +56,13 @@ L.tileLayer(
   },
 ).addTo(map);
 
+const mapReset = () => {
+  map.setView({
+    lat: MapSettings.LAT,
+    lng: MapSettings.LNG,
+  }, MapSettings.ZOOM);
+};
+
 const mainMarkerIcon = L.icon ({
   iconUrl: MainPinSettings.URL,
   iconSize: [MainPinSettings.SIZE.X, MainPinSettings.SIZE.Y],
@@ -81,6 +87,10 @@ mainMarker.on('drag', (evt) => {
   address.value = `${lat.toFixed(5)}, ${lng.toFixed(5)}`;
 })
 
+const resetMainMarker = () => {
+  mainMarker.setLatLng([MapSettings.LAT, MapSettings.LNG]);
+};
+
 const renderPins = (dataArray) => {
   dataArray.forEach((ad) => {
 
@@ -92,8 +102,8 @@ const renderPins = (dataArray) => {
 
     const marker = L.marker (
       {
-        lat: ad.location.x,
-        lng: ad.location.y,
+        lat: ad.location.lat,
+        lng: ad.location.lng,
       },
       {
         icon: icon,
@@ -106,4 +116,4 @@ const renderPins = (dataArray) => {
   });
 };
 
-renderPins(ads);
+export {renderPins, setDefaultAddress, resetMainMarker, mapReset};
