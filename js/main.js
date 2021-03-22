@@ -10,7 +10,6 @@ const MAX_PINS_NUMBER = 10;
 const onDataSuccess = (data) => {
   renderPins(data.slice(0, MAX_PINS_NUMBER));
   setFilterListener(data);
-  console.log(data);
 };
 
 const onDataError = () => showAlert();

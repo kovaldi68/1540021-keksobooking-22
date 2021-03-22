@@ -45,21 +45,21 @@ const filterByCapacity = (card) => {
   return card.offer.guests === parseInt(guestsFilter.value, 10) || guestsFilter.value === DEFAULT_VALUE;
 };
 
-// const filterByFeatures = (card) => {
-//   const checkedFeatures = featuresFilter.querySelectorAll('input:checked');
+const filterByFeatures = (card) => {
+  const checkedFeatures = featuresFilter.querySelectorAll('input:checked');
 
-//   if (checkedFeatures.length === 0) {
-//     return card;
-//   }
+  if (checkedFeatures.length === 0) {
+    return card;
+  }
 
-//   checkedFeatures.forEach((feature) => {
-//     if(!card.offer.features.includes(feature)) {
-//       return
-//     }
-//   });
+  checkedFeatures.forEach((feature) => {
+    if(!card.offer.features.includes(feature)) {
+      return
+    }
+  });
 
-//   return card;
-// };
+  return card;
+};
 
 const filterPins = (data) => data.filter((card) => {
   return filterByType(card) && filterByPrice(card) && filterByRooms(card) && filterByCapacity(card) && filterByFeatures(card);
