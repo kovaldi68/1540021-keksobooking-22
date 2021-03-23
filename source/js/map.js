@@ -1,5 +1,4 @@
-/* global L:readonly */
-
+import L from 'leaflet';
 import {
   disablePage,
   enablePage
