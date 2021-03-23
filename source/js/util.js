@@ -1,4 +1,6 @@
 const ALERT_SHOW_TIME = 3000;
+const IMG_HEIGHT = 70;
+const IMG_WIDTH = 70;
 
 const getRandomNumberInRange = (min, max) => {
   if (min < 0 || max < 0 || min > max) {
@@ -82,6 +84,16 @@ const debounce = (debouncedFunc, delay) => {
   };
 };
 
+const createImage = (className, alt, imgWidth = IMG_WIDTH, imgHeight = IMG_HEIGHT) => {
+  const newImage = document.createElement('img');
+  newImage.classList.add(className);
+  newImage.alt = alt;
+  newImage.width = imgWidth;
+  newImage.height = imgHeight;
+
+  return newImage;
+}
+
 export {
   getRandomNumberInRange,
   getRandomFloatInRange,
@@ -90,5 +102,6 @@ export {
   getWordEnding,
   showAlert,
   isEscEvent,
-  debounce
+  debounce,
+  createImage
 };

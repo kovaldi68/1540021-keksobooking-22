@@ -1,13 +1,13 @@
 import {getWordEnding} from './util.js';
-import {adForm} from './page-status.js';
 import {setDefaultAddress, resetMainMarker, mapReset} from './map.js';
 import {sendData} from './api.js';
 import {successMessage, errorMessage} from './message.js';
-import {resetAvatar, resetAdPhotos} from './upload-image.js';
+import {resetPhotos} from './upload-image.js';
 
 const typeSelector = document.querySelector('#type');
 const timeInSelector = document.querySelector('#timein');
 const timeOutSelector = document.querySelector('#timeout');
+const adForm = document.querySelector('.ad-form');
 const adTitleInput = adForm.querySelector('#title');
 const adPriceInput = adForm.querySelector('#price');
 const adRoomSelect = adForm.querySelector('#room_number');
@@ -17,7 +17,6 @@ const resetButton = document.querySelector('.ad-form__reset');
 const mapFilters = document.querySelector('.map__filters');
 
 const SYMBOL_WORDS = ['символ', 'символа', 'символов'];
-const DEFAULT_AVATAR_SRC = 'img/muffin-grey.svg';
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE = 1000000;
@@ -92,6 +91,8 @@ const inputValidityHandler = (evt) => {
 };
 
 const formSubmitHandler = (evt) => {
+  capacityChangeHandler();
+
   evt.preventDefault();
   if (evt.target.checkValidity()) {
     const formData = new FormData(evt.target);
@@ -105,8 +106,7 @@ const resetForm = () => {
   setDefaultAddress();
   resetMainMarker();
   mapReset();
-  resetAvatar(DEFAULT_AVATAR_SRC);
-  resetAdPhotos();
+  resetPhotos();
 };
 
 const buttonResetHandler = (evt) => {
@@ -123,7 +123,6 @@ const onDataError = () => {
   errorMessage();
 };
 
-capacityChangeHandler();
 adRoomSelect.addEventListener('change', capacityChangeHandler);
 adCapacitySelect.addEventListener('change', capacityChangeHandler);
 invalidFormElements.forEach( element => element.addEventListener('change', inputValidityHandler))

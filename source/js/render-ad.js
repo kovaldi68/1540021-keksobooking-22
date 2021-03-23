@@ -30,6 +30,18 @@ const renderAdPhotos = (photos, photoGallery) => {
   });
 };
 
+const removeEmptyField = (advert) => {
+  const fields = advert.children;
+
+  for (let i = 0; i < fields.length; i++) {
+    if (!fields[i]) {
+      fields[i].remove();
+    }
+  }
+
+  return advert;
+};
+
 const renderAd = ( {author, offer} ) => {
   const {
     title,
@@ -64,7 +76,7 @@ const renderAd = ( {author, offer} ) => {
   photosList.innerHTML = '';
   renderAdPhotos(photos, photosList);
 
-  return clonedCard;
+  return removeEmptyField(clonedCard);
 };
 
 export {renderAd};

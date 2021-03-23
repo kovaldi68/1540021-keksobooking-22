@@ -55,9 +55,16 @@ const filterByFeatures = (card) => {
   return checkedFeatures.every((feature) => card.offer.features.includes(feature.value));
 };
 
-const filterPins = (data) => data.filter((card) => {
-  return filterByType(card) && filterByPrice(card) && filterByRooms(card) && filterByCapacity(card) && filterByFeatures(card);
-});
+const filterPins = (data) => {
+  const filteredArray = [];
+
+  for (let i = 0; i <= data.length; i++) {
+    if (filterByType(data[i]) && filterByPrice(data[i]) && filterByRooms(data[i]) && filterByCapacity(data[i]) && filterByFeatures(data[i]) && filteredArray.length <= MAX_RERENDER_PINS_COUNT) {
+      filteredArray.push(data[i]);
+    }
+  }
+  return filteredArray;
+};
 
 const rerenderPins = debounce((data) => {
   const filteredPins = filterPins(data);
@@ -68,6 +75,9 @@ const rerenderPins = debounce((data) => {
 
 const setFilterListener = (data) => {
   filterForm.addEventListener('change', () => {
+    rerenderPins(data);
+  });
+  filterForm.addEventListener('reset', () => {
     rerenderPins(data);
   });
 };

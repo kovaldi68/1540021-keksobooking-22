@@ -3,32 +3,27 @@ const adFields = Array.from(adForm.children);
 const mapContainer = document.querySelector('.map__filters');
 const mapFilters = Array.from(mapContainer.children);
 
-const toggleElemAvailability = (array) => {
+const toggleElemAvailability = (array, state) => {
   array.forEach((element) => {
-    if (element.disabled) {
-      element.disabled = false;
-    } else {
-      element.disabled = true;
-    }
+    element.disabled = state;
   });
 }
 
 const disablePage = () => {
   adForm.classList.add('ad-form--disabled');
   mapContainer.classList.add('map__filters--disabled');
-  toggleElemAvailability(adFields);
-  toggleElemAvailability(mapFilters);
+  toggleElemAvailability(adFields, true);
+  toggleElemAvailability(mapFilters, true);
 }
 
 const enablePage = () => {
   adForm.classList.remove('ad-form--disabled');
   mapContainer.classList.remove('map__filters--disabled');
-  toggleElemAvailability(adFields);
-  toggleElemAvailability(mapFilters);
+  toggleElemAvailability(adFields, false);
+  toggleElemAvailability(mapFilters, false);
 }
 
 export {
   disablePage,
-  enablePage,
-  adForm
+  enablePage
 };
