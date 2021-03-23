@@ -59,7 +59,6 @@ const filterPins = (data) => {
   const filteredArray = [];
 
   for (let i = 0; i <= data.length; i++) {
-    console.log(data[i]);
     if (filterByType(data[i]) && filterByPrice(data[i]) && filterByRooms(data[i]) && filterByCapacity(data[i]) && filterByFeatures(data[i]) && filteredArray.length <= MAX_RERENDER_PINS_COUNT) {
       filteredArray.push(data[i]);
     }
