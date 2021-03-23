@@ -73,6 +73,15 @@ const isEscEvent = (evt) => {
   return evt.key === ('Escape' ||  'Esc');
 };
 
+const debounce = (debouncedFunc, delay) => {
+  let timeout;
+  return function () {
+    const funcCall = () => {debouncedFunc.apply(this, arguments)}
+    clearTimeout(timeout);
+    timeout = setTimeout(funcCall, delay)
+  };
+};
+
 export {
   getRandomNumberInRange,
   getRandomFloatInRange,
@@ -80,5 +89,6 @@ export {
   getRandomArrayElement,
   getWordEnding,
   showAlert,
-  isEscEvent
+  isEscEvent,
+  debounce
 };

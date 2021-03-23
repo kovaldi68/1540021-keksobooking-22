@@ -30,7 +30,7 @@ const renderAdPhotos = (photos, photoGallery) => {
   });
 };
 
-const renderAd = ( {author, offer, location} ) => {
+const renderAd = ( {author, offer} ) => {
   const {
     title,
     features,

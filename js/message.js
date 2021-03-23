@@ -40,7 +40,7 @@ const onErrorClickHandler = () => {
 
 const successMessage = () => {
   const clonedMessage = successTemplate.cloneNode(true);
-  clonedMessage.style.zIndex = 500;
+  clonedMessage.style.zIndex = 1000;
   main.appendChild(clonedMessage);
 
   document.addEventListener('keydown', onSuccessEscHandler);
@@ -49,7 +49,7 @@ const successMessage = () => {
 
 const errorMessage = () => {
   const clonedMessage = errorTemplate.cloneNode(true);
-  clonedMessage.style.zIndex = 500;
+  clonedMessage.style.zIndex = 1000;
   main.appendChild(clonedMessage);
 
   document.addEventListener('keydown', onErrorEscHandler);
