@@ -3,6 +3,7 @@ import {adForm} from './page-status.js';
 import {setDefaultAddress, resetMainMarker, mapReset} from './map.js';
 import {sendData} from './api.js';
 import {successMessage, errorMessage} from './message.js';
+import {resetAvatar, resetAdPhotos} from './upload-image.js';
 
 const typeSelector = document.querySelector('#type');
 const timeInSelector = document.querySelector('#timein');
@@ -16,6 +17,7 @@ const resetButton = document.querySelector('.ad-form__reset');
 const mapFilters = document.querySelector('.map__filters');
 
 const SYMBOL_WORDS = ['символ', 'символа', 'символов'];
+const DEFAULT_AVATAR_SRC = 'img/muffin-grey.svg';
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MAX_PRICE = 1000000;
@@ -84,7 +86,7 @@ const capacityChangeHandler = () => {
 
 const inputValidityHandler = (evt) => {
   const formElement = evt.target;
-  const { valid } = formElement.validity;
+  const {valid} = formElement.validity;
 
   formElement.style.border = !valid ? STYLES.INVALID : STYLES.VALID;
 };
@@ -103,12 +105,13 @@ const resetForm = () => {
   setDefaultAddress();
   resetMainMarker();
   mapReset();
+  resetAvatar(DEFAULT_AVATAR_SRC);
+  resetAdPhotos();
 };
 
 const buttonResetHandler = (evt) => {
   evt.preventDefault();
   resetForm();
-
 };
 
 const onDataSuccess = () => {

@@ -46,19 +46,13 @@ const filterByCapacity = (card) => {
 };
 
 const filterByFeatures = (card) => {
-  const checkedFeatures = featuresFilter.querySelectorAll('input:checked');
+  const checkedFeatures = Array.from(featuresFilter.querySelectorAll('input:checked'));
 
   if (checkedFeatures.length === 0) {
-    return card;
+    return true;
   }
 
-  checkedFeatures.forEach((feature) => {
-    if(!card.offer.features.includes(feature)) {
-      return
-    }
-  });
-
-  return card;
+  return checkedFeatures.every((feature) => card.offer.features.includes(feature.value));
 };
 
 const filterPins = (data) => data.filter((card) => {

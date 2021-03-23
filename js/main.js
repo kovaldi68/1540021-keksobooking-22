@@ -4,6 +4,7 @@ import {fetchData} from './api.js';
 import {renderPins} from './map.js';
 import {showAlert} from './util.js';
 import {setFilterListener} from './filter.js';
+import './upload-image.js';
 
 const MAX_PINS_NUMBER = 10;
 
