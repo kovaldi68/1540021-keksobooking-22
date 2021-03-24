@@ -10,7 +10,7 @@ const DEFAULT_AVATAR_SRC = 'img/muffin-grey.svg';
 
 const addAvatar = () => {
   avatarPreview.innerHTML = '';
-  const newAvatar = avatarPreview.appendChild(createImage('ad-form-header__img', 'Аватарка пользоватедя', 40, 40));
+  const newAvatar = avatarPreview.appendChild(createImage('ad-form-header__img', 'Аватарка пользователя', 40, 40));
 
   return newAvatar;
 };
