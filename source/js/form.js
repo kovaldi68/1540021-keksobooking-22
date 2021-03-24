@@ -23,7 +23,7 @@ const MAX_PRICE = 1000000;
 const PALACE_ROOM_COUNT = 100;
 const PALACE_GUEST_COUNT = 0;
 const STYLES = {
-  INVALID: '2px dashed orange',
+  INVALID: '3px solid red',
   VALID: '1px solid green',
 };
 
