@@ -1,5 +1,4 @@
 import 'leaflet';
-import 'leaflet/dist/leaflet.css'
 import './page-status.js';
 import './form.js';
 import {fetchData} from './api.js';

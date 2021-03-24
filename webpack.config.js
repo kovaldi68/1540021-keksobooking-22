@@ -8,7 +8,11 @@ module.exports = {
     filename: 'main.bundle.js',
     path: path.resolve(__dirname, 'build/js'),
   },
-  plugins: [new MiniCssExtractPlugin()],
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: "css/[name].min.css",
+    }),
+  ],
   module: {
     rules: [
       {
