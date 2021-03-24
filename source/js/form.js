@@ -1,5 +1,8 @@
 import {getWordEnding} from './util.js';
-import {setDefaultAddress, resetMainMarker, mapReset} from './map.js';
+import {
+  setDefaultAddress,
+  resetMainMarker,
+  mapReset} from './map.js';
 import {sendData} from './api.js';
 import {successMessage, errorMessage} from './message.js';
 import {resetPhotos} from './upload-image.js';

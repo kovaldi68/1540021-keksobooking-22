@@ -23,7 +23,4 @@ const enablePage = () => {
   toggleElemAvailability(mapFilters, false);
 }
 
-export {
-  disablePage,
-  enablePage
-};
+export {disablePage,enablePage};

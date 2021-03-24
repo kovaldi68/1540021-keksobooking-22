@@ -1,9 +1,6 @@
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {
-  disablePage,
-  enablePage
-} from './page-status.js';
+import {disablePage,enablePage} from './page-status.js';
 import {renderAd} from './render-ad.js';
 
 const MapSettings = {
@@ -124,4 +121,10 @@ const clearPins = () => {
   pinsLayer.clearLayers();
 };
 
-export {renderPins, setDefaultAddress, resetMainMarker, mapReset, clearPins};
+export {
+  renderPins,
+  setDefaultAddress,
+  resetMainMarker,
+  mapReset,
+  clearPins
+};
