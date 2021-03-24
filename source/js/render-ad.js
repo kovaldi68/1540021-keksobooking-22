@@ -31,12 +31,17 @@ const renderAdPhotos = (photos, photoGallery) => {
 };
 
 const removeEmptyField = (advert) => {
-  const fields = advert.children;
+  const fields = advert.querySelectorAll('.popup > *:not(img)');
+  const avatar = advert.querySelector('.popup__avatar');
 
-  for (let i = 0; i < fields.length; i++) {
-    if (!fields[i]) {
-      fields[i].remove();
+  for (const field of fields) {
+    if (field.innerHTML === '' && field.textContent === '') {
+      field.remove();
     }
+  }
+
+  if (avatar.src === '') {
+    avatar.remove();
   }
 
   return advert;
