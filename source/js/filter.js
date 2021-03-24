@@ -58,7 +58,7 @@ const filterByFeatures = (card) => {
 const filterPins = (data) => {
   const filteredArray = [];
 
-  for (let i = 0; i <= data.length; i++) {
+  for (let i = 0; i < data.length; i++) {
     if (filterByType(data[i]) && filterByPrice(data[i]) && filterByRooms(data[i]) && filterByCapacity(data[i]) && filterByFeatures(data[i]) && filteredArray.length <= MAX_RERENDER_PINS_COUNT) {
       filteredArray.push(data[i]);
     }
@@ -69,7 +69,7 @@ const filterPins = (data) => {
 const rerenderPins = debounce((data) => {
   const filteredPins = filterPins(data);
   clearPins();
-  renderPins(filteredPins.slice(0, MAX_RERENDER_PINS_COUNT));
+  renderPins(filteredPins);
 }, RERENDER_DELAY);
 
 

@@ -34,7 +34,7 @@ const removeEmptyField = (advert) => {
   const fields = advert.children;
 
   for (let i = 0; i < fields.length; i++) {
-    if (!fields[i]) {
+    if (fields[i].innerHTML === '') {
       fields[i].remove();
     }
   }
