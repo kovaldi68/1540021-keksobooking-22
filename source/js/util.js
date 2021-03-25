@@ -44,7 +44,7 @@ const getWordEnding = (number, textForms) => {
     return textForms[2]; }
   if (leftOver10 > 1 && leftOver10 < 5) {
     return textForms[1]; }
-  if (leftOver10 == 1) {
+  if (leftOver10 === 1) {
     return textForms[0]; }
   return textForms[2];
 }
